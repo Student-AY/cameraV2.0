@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React , {useEffect , useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import { Camera  } from 'expo-camera'
 
+
+
+
+export default function App() {
 const [hasCameraPermission , setHasCameraPermission] = useState(null);  
 
 const [camera , setCamera] = useState(null);  
@@ -29,21 +33,39 @@ const takePicture = async () => {
     setImage(data.uri)
   }
 }
-
-
-export default function App() {
   return (
-    <View style={{}}>
+    <View style={{flex:1}}>
+      <View style={styles.cameraContainer}>
+        <Camera ref={ref => setCamera(ref)}
+        style={styles.cameraRatio}
+        type={type}
+        ratio={'1:1'}
+        />
+        </View>
+
+        <Button
+        title='flip camera'
+        onPress={() => {
+          setType(type === Camera.Constants.Type.back ? Camera.Constants.Type.front : Camera.Constants.Type.back);
+        }}></Button>
+
+        <Button title="Take picture"
+        onPress={() => takePicture()}
+        />
+        {image && <Image source={{uri : image}} style={{flex:1}} />}
       
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  cameraContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection:'row'
+    
   },
+  cameraRatio:{
+    flex:1,
+    aspectRatio:1
+  }
 });
