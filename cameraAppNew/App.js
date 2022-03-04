@@ -4,9 +4,6 @@ import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import { Camera  } from 'expo-camera'
 import { FlashMode } from 'expo-camera/build/Camera.types';
 
-
-
-
 export default function App() {
 const [hasCameraPermission , setHasCameraPermission] = useState(null);  
 
